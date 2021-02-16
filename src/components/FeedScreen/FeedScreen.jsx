@@ -9,13 +9,16 @@ export const FeedScreen = ({ userId, goToLoginScreen}) => {
   const [posts, setPosts] = useState([]);
   const [activelink, setActiveLink] = useState('');
 
-  // useCallback(()=>{
-  //   putPost(userId, 'NASA Breaking news', 'https://www.nasa.gov/rss/dyn/breaking_news.rss')
-  //   putPost(userId, 'Reddit front page', 'https://www.reddit.com/.rss')
-  //   putPost(userId, 'Mobile World Live', 'https://www.mobileworldlive.com/latest-stories/feed/')
-  //   getPosts(userId)
-  //     .then(result => setPosts(result));
-  // }, [userId])
+  const start = () =>{
+    putPost(userId, 'NASA Breaking news', 'https://www.nasa.gov/rss/dyn/breaking_news.rss')
+      .then(result => setPosts(result));
+    putPost(userId, 'Reddit front page', 'https://www.reddit.com/.rss')
+      .then(result => setPosts(result));
+    putPost(userId, 'Mobile World Live', 'https://www.mobileworldlive.com/latest-stories/feed/')
+      .then(result => setPosts(result));
+    getPosts(userId)
+      .then(result => setPosts(result));
+  };
 
   const getNewPosts = async() => {
     const newPosts = await getPosts(userId);
@@ -23,16 +26,20 @@ export const FeedScreen = ({ userId, goToLoginScreen}) => {
   }
 
   const addPost = async () => {
-    putPost(userId, title, body);
+    putPost(userId, title, body)
+      .then(result => setPosts(result));
   }
 
   useEffect(() => {
+    start();
     getNewPosts();
   }, [])
 
   const getActiveLink = (link) => {
     console.log(link)
   }
+
+  console.log(posts);
 
   return (
     <section>
