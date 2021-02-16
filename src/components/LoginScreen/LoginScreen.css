@@ -1,0 +1,23 @@
+.Form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.Form__input {
+  margin: 10px;
+  padding: 5px;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+.Button {
+  margin: 10px;
+  padding: 10px;
+  border: none;
+  background-color:cyan;
+  font-size: 18px;
+  font-weight: 500;
+  color: black;
+  border-radius: 10px;
+}

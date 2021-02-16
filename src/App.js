@@ -1,23 +1,38 @@
-import logo from './logo.svg';
+import React, { useState } from 'react'
 import './App.css';
+import { FeedScreen } from './components/FeedScreen/FeedScreen';
+import { LoginScreen } from './components/LoginScreen/LoginScreen';
+
 
 function App() {
+  const [onFeedPage, setOnFeedPage] = useState(false);
+  const [userId, setUserId] = useState(null);
+
+  const goToFeedScreen = (id) => {
+    setUserId(id);
+    setOnFeedPage(true);
+  }
+  const goToLoginScreen = () => {
+    setUserId(null);
+    setOnFeedPage(false);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <main className="App-header">
+        {!onFeedPage && (
+          <LoginScreen 
+          goToFeedScreen={goToFeedScreen}
+          />
+        )}
+        {onFeedPage && userId && (
+          <FeedScreen
+          userId={userId}
+          goToLoginScreen={goToLoginScreen}
+          />
+        )}
+      </main>
+
     </div>
   );
 }
